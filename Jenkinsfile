@@ -33,4 +33,11 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            mail to: 'xcox@nate.com',
+            subject: 'Completed pipeline: ${currentBuild.fullDisplayNam}',
+            body: "Your build completed, please check: ${env.BUILD_URL}"
+        }
+    }
 }
