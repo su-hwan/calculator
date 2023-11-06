@@ -33,6 +33,7 @@ pipeline {
             }
         }
     }
+    /*
     post {
         always {
             mail to: 'xcox@nate.com',
@@ -40,4 +41,5 @@ pipeline {
             body: "Your build completed, please check: ${env.BUILD_URL}"
         }
     }
+    */
 }
