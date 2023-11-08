@@ -41,9 +41,30 @@ pipeline {
             steps {
                 sh "docker build -t kimsuhwan/calculator"
             }
-         }
+        }
+        stage("Docker push") {
+            steps {
+                sh "docker push kimsuhwan/calculator"
+            }
+        }
+        stage("Deploying to staging") {
+            steps {
+                sh "docker run -d --rm -p 8765:8080 --name calculator kimsuhwan/calculator"
+            }
+        }
+        stage("Acceptance test") {
+            steps {
+                sleep 60
+                sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
+            }
+        }
     }
-
+    
+    post {
+        always {
+            sh "docker stop calculator"
+        }
+    }
 
     /*
     post {
